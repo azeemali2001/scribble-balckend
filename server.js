@@ -10,10 +10,14 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://draw-scribble.netlify.app", // allow your frontend only
     methods: ["GET", "POST"],
+    credentials: true
   },
+  transports: ["websocket", "polling"] // important for deployed env
 });
+
+
 
 const rooms = {}; // { roomId: { users: [], drawer: null, word: "", scores: {}, timerInterval: null } }
 const userSockets = {}; // username -> socket.id
